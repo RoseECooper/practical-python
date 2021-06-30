@@ -19,8 +19,6 @@ def portfolio_cost(filename):
                 total_cost+=no_shares*price
             except ValueError:
                 print('Bad data', row)
-        print('Total portfolio cost is: ',total_cost) 
-
     return total_cost 
 
 if len(sys.argv)==2:
