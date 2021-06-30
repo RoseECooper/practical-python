@@ -42,7 +42,7 @@ def read_prices(filename):
                 pass
     return prices
 
-def stock_value_change(portfolio, prices):
+def stock_price_change(portfolio, prices):
 
     '''
     Function to take the information from portfolio and prices and calculate the 
@@ -63,10 +63,10 @@ portfolio=read_portfolio('c:/Users/znc46146/Documents/practical-python/Work/Data
 prices=read_prices('c:/Users/znc46146/Documents/practical-python/Work/Data/prices.csv')
 
 # Generate output of stock_value_change and construct a structured print statement to view the data.
-report=stock_value_change(portfolio, prices)
+table=stock_price_change(portfolio, prices)
 
 headers=('Name', 'Shares', 'Price', 'Difference')
 print('%10s %10s %10s %10s' % headers)
 print(('-' * 10 + ' ')*len(headers))
-for row in report:
+for row in table:
     print('%10s %10d %10.2f %10.2f' % row)
