@@ -70,3 +70,17 @@ print('%10s %10s %10s %10s' % headers)
 print(('-' * 10 + ' ')*len(headers))
 for row in table:
     print('%10s %10d %10.2f %10.2f' % row)
+
+# Add in section to determine if the portfolio gained/lost value.
+total_diff=0
+
+for index, tuple in enumerate(table):
+    difference=tuple[3]
+    total_diff=total_diff+difference
+
+print('Total portfolio value change:', total_diff)
+
+while total_diff>0:
+    print('Portfolio gained value')
+else:
+    print('Portfolio lost value')
