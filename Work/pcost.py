@@ -1,28 +1,31 @@
 # pcost.py
-import csv
+import report
 
 def portfolio_cost(filename):
+    '''
+    Calculate total cost of a stock portfolio
+    '''
 
-    total_cost=0.0
+    portfolio=report.read_portfolio(filename)
+    return sum ([s['shares']*s['price']for s in portfolio])
 
-    with open (filename,'rt') as csv_file:
-        rows=csv.reader(csv_file)
-        headers=next(rows) 
-        for rowno, row in enumerate(rows, start=1):
-            record=dict(zip(headers, row))
-            try:
-                no_shares=int(record['shares'])
-                price=float(record['price'])
-                total_cost+=no_shares*price
-            except ValueError:
-                print(f'Row {rowno}: Missing data: {row}')
-    return total_cost 
-
-# I know leaving 'dead' code in is messy, but this is so I remeber how to read in data from a file so I don't forget!
+# I know leaving 'dead' code in is messy, but this is so I remember how to read in data from a file so I don't forget!
 # if len(sys.argv)==2:
 #     filename=sys.argv[1]
 # else:
 #     filename=input('Enter a filename:')
 
-cost = portfolio_cost('c:/Users/znc46146/Documents/practical-python/Work/Data/portfoliodate.csv')
-print('Total cost:', cost)
+def main(args):
+    '''
+    Top level function to run pcost file.
+    Can import the file into the console and run the main module. 
+    Takes inputs from the command line as input arguments for the files being used. 
+    '''
+    if len(args) != 2:
+        raise SystemExit('Usage: %s portfoliofile' % args[0])
+    filename=args[1]
+    print('Total cost: ',portfolio_cost(filename))
+
+if __name__=='__main__':
+    import sys
+    main(sys.argv)

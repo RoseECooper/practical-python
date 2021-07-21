@@ -1,42 +1,22 @@
 # Exercises from practical-python course.
 # Currently completed exercise 3.1, now on section 3.2
 
-import csv
+import fileparse
 
 def read_portfolio(filename):
     '''
     Function to read in the information from the portfolio file 
     into a dictionary.
     '''
-    portfolio=[]
-
-    with open (filename) as csv_file: 
-        rows=csv.reader(csv_file)
-        headers=next(rows) 
-        for row in rows:
-            record=dict(zip(headers,row))
-            stock={
-                'name':record['name'],
-                'shares':int(record['shares']),
-                'price':float(record['price'])
-            }
-            portfolio.append(stock)
-    return portfolio 
+    with open(filename) as lines:
+        return fileparse.parse_csv(lines, select=['name', 'shares', 'price'], types=[str, int, float])
 
 def read_prices(filename):
     '''
     Function to read in the information from the prices file
     '''
-    prices={}
-
-    with open(filename) as csv_file:
-        rows=csv.reader(csv_file)
-        for row in rows:
-            try:
-                prices[row[0]]=float(row[1])
-            except IndexError:
-                pass
-    return prices
+    with open(filename) as lines:
+        return dict(fileparse.parse_csv(lines, types=[str, float], has_headers=False))
 
 def stock_price_change(portfolio, prices):
     '''
@@ -91,4 +71,17 @@ def portfolio_report(portfolio_filename, prices_filename):
     print_report(table)
     portfolio_diff(table)
 
-portfolio_report('Data/portfolio.csv', 'Data/prices.csv')
+def main(args):
+    '''
+    Top level function to run report file.
+    Can import the file into the console and run the main module. 
+    Takes inputs from the command line as input arguments for the files being used. 
+    '''
+    if len(args) != 3:
+        raise SystemExit('Usage: %s portfile pricefile' % args[0])
+    portfolio_report(args[1], args[2])
+
+if __name__=='__main__':
+    import sys
+    main(sys.argv) 
+
