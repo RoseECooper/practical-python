@@ -7,7 +7,7 @@ def portfolio_cost(filename):
     '''
 
     portfolio=report.read_portfolio(filename)
-    return sum ([s['shares']*s['price']for s in portfolio])
+    return sum ([s.cost() for s in portfolio])
 
 # I know leaving 'dead' code in is messy, but this is so I remember how to read in data from a file so I don't forget!
 # if len(sys.argv)==2:
