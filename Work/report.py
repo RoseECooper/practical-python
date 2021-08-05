@@ -1,5 +1,5 @@
 # Exercises from practical-python course.
-# Currently completed exercise 4.4
+# Currently completed exercise 4.6
 
 import fileparse
 from stock import Stock
@@ -40,7 +40,7 @@ def print_report(reportdata, formatter):
     '''
     Function to construct formatted print statement.
     '''
-    formatter.headings=[('Name', 'Shares', 'Price', 'Change')]
+    formatter.headings(['Name', 'Shares', 'Price', 'Change'])
     for name, shares, price, change in reportdata: 
         rowdata=[name, str(shares), f'{price:0.2f}', f'{change:0.2f}']
         formatter.row(rowdata)
@@ -62,15 +62,17 @@ def print_report(reportdata, formatter):
 #     else:
 #         print('Portfolio lost value')
 
-def portfolio_report(portfolio_filename, prices_filename): 
+def portfolio_report(portfoliofile, pricefile): 
     '''
     Function to read in files and output stocks report in a table along 
     with a statement on how the portfolio has performed
     '''
-    portfolio=read_portfolio(portfolio_filename)
-    prices=read_prices(prices_filename)
+    portfolio=read_portfolio(portfoliofile)
+    prices=read_prices(pricefile)
+
     report=make_report_data(portfolio, prices)
-    formatter=tableformat.TextTableFormatter()
+
+    formatter=tableformat.CSVTableFormatter()
     print_report(report, formatter)
 #    portfolio_diff(report)
 
