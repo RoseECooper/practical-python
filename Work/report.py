@@ -62,17 +62,20 @@ def print_report(reportdata, formatter):
 #     else:
 #         print('Portfolio lost value')
 
-def portfolio_report(portfoliofile, pricefile): 
+def portfolio_report(portfoliofile, pricefile, fmt): 
     '''
     Function to read in files and output stocks report in a table along 
     with a statement on how the portfolio has performed
     '''
+    # Read in data files:
     portfolio=read_portfolio(portfoliofile)
     prices=read_prices(pricefile)
 
+    # Create the report data:
     report=make_report_data(portfolio, prices)
 
-    formatter=tableformat.CSVTableFormatter()
+    # Print the report in the desired format:
+    formatter = tableformat.create_formatter(fmt)
     print_report(report, formatter)
 #    portfolio_diff(report)
 
@@ -82,9 +85,9 @@ def main(args):
     Can import the file into the console and run the main module. 
     Takes inputs from the command line as input arguments for the files being used. 
     '''
-    if len(args) != 3:
+    if len(args) != 4:
         raise SystemExit('Usage: %s portfile pricefile' % args[0])
-    portfolio_report(args[1], args[2])
+    portfolio_report(args[1], args[2], args[3])
 
 if __name__=='__main__':
     import sys

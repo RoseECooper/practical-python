@@ -40,3 +40,31 @@ class CSVTableFormatter(TableFormatter):
 
     def row(self, rowdata):
         print(','.join(rowdata))
+
+class HTMLTableFormatter(TableFormatter):
+    '''
+    Output portfolio data in a html format.
+    '''
+    def headings (self, headers):
+        print('<tr>', end='') 
+        for h in headers: 
+            print(f'<th>{h}</th>', end='')
+        print('</tr>')
+        print()
+
+    def row(self, rowdata):
+        print('<tr>', end='')
+        for d in rowdata: 
+            print(f'<td>{d}</td>', end='')
+        print('</tr>')
+
+def create_formatter(name):
+
+    if name == 'txt':
+        return TextTableFormatter()
+    elif name == 'csv':
+        return CSVTableFormatter()
+    elif name == 'html':
+        return HTMLTableFormatter()
+    else:
+        raise RuntimeError(f'Unknown format {name}')
