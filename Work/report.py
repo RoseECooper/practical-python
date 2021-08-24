@@ -1,20 +1,20 @@
 # Exercises from practical-python course.
-# Currently completed exercise 6.1
+# Currently completed exercise 7.6
 
 import fileparse
 from stock import Stock
 import tableformat
 from portfolio import Portfolio
 
-def read_portfolio(filename):
+def read_portfolio(filename, **opts):
     '''
     Function to read in the information from the portfolio file 
     into a list of dictionaries.
     '''
     with open(filename) as lines:
-        portdicts=fileparse.parse_csv(lines, select=['name', 'shares', 'price'], types=[str, int, float])
+        portdicts=fileparse.parse_csv(lines, select=['name', 'shares', 'price'], types=[str, int, float], **opts)
     
-    portfolio=[Stock(d['name'], d['shares'], d['price']) for d in portdicts]
+    portfolio=[Stock(**d) for d in portdicts]
     return Portfolio(portfolio)
 
 def read_prices(filename):
