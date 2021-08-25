@@ -1,6 +1,12 @@
 # Define a stock class to manipulate individual stocks
+
+from typedproperty import String, Integer, Float
+
 class Stock: 
-    __slots__ = ('name', '_shares', 'price')
+    name  = String('name')
+    shares = Integer('shares')
+    price = Float('float')
+
     def __init__(self, name, shares, price): 
         self.name=name
         self.shares=shares
