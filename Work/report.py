@@ -1,5 +1,5 @@
 # Exercises from practical-python course.
-# Currently completed exercise 7.6
+# Currently completed exercise 8.1
 
 import fileparse
 from stock import Stock
@@ -12,17 +12,14 @@ def read_portfolio(filename, **opts):
     into a list of dictionaries.
     '''
     with open(filename) as lines:
-        portdicts=fileparse.parse_csv(lines, select=['name', 'shares', 'price'], types=[str, int, float], **opts)
-    
-    portfolio=[Stock(**d) for d in portdicts]
-    return Portfolio(portfolio)
+       return Portfolio.from_csv(lines, **opts)
 
-def read_prices(filename):
+def read_prices(filename, **opts):
     '''
     Function to read in the information from the prices file.
     '''
     with open(filename) as lines:
-        return dict(fileparse.parse_csv(lines, types=[str, float], has_headers=False))
+        return dict(fileparse.parse_csv(lines, types=[str, float], has_headers=False, **opts))
 
 def make_report_data(portfolio, prices):
     '''
@@ -92,5 +89,10 @@ def main(args):
 
 if __name__=='__main__':
     import sys
+    import logging
+    logging.basicConfig(
+        filename = 'app.log',   # log output file
+        level = logging.INFO,   # Output level
+    )
     main(sys.argv) 
 
