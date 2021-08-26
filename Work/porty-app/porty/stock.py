@@ -1,6 +1,6 @@
 # Define a stock class to manipulate individual stocks
 
-from typedproperty import String, Integer, Float
+from .typedproperty import String, Integer, Float
 
 class Stock: 
     name  = String('name')

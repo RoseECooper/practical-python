@@ -1,7 +1,7 @@
-from follow import Follow
+from .follow import Follow
 import csv
-import report
-import tableformat
+from . import report
+from . import tableformat
 import time
 
 def select_columns(rows, indicies):
